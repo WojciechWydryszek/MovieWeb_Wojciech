@@ -3,7 +3,7 @@
  */
 package cat.uvic.teknos.m06.MovieWeb.app;
 
-import cat.uvic.teknos.m06.MovieWeb.list.LinkedList;
+import cat.uvic.teknos.m06.MovieWeb.domain.LinkedList;
 
 import static cat.uvic.teknos.m06.MovieWeb.utilities.StringUtils.join;
 import static cat.uvic.teknos.m06.MovieWeb.utilities.StringUtils.split;

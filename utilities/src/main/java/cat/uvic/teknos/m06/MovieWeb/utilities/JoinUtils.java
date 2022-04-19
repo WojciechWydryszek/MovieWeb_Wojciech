@@ -3,7 +3,7 @@
  */
 package cat.uvic.teknos.m06.MovieWeb.utilities;
 
-import cat.uvic.teknos.m06.MovieWeb.list.LinkedList;
+import cat.uvic.teknos.m06.MovieWeb.domain.LinkedList;
 
 class JoinUtils {
     public static String join(LinkedList source) {
