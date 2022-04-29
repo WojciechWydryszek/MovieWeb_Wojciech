@@ -14,7 +14,6 @@ class JoinUtils {
             }
             result.append(source.get(i));
         }
-
         return result.toString();
     }
 }

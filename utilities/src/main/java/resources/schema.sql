@@ -1,3 +1,5 @@
+create database MovieWeb;
+
 create table FILMS ( # 1:1 with MAIN_CHARACTER
     INT(5) PRIMARY KEY,
     NAME VARCHAR(15) NOT NULL,
