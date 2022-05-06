@@ -8,4 +8,5 @@ plugins {
 
 dependencies {
     api project(':list')
+    implementation group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-xml', version: '2.13.2'
 }

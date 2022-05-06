@@ -1,0 +1,6 @@
+<schema>
+    <commands>
+        <command>create table B</command>
+
+    </commands>
+</schema>

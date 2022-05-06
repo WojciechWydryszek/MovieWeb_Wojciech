@@ -7,5 +7,4 @@ import java.io.FileNotFoundException;
  */
 public interface SchemaLoader {
     void load() throws FileNotFoundException;
-
 }
