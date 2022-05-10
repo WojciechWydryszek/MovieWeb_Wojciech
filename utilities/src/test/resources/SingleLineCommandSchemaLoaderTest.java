@@ -14,7 +14,7 @@ class SingleLineCommandSchemaLoaderTest {
         connectionProperties.setUrl("jdbc:mysql://localhost:3306/test");
         connectionProperties.setUsername("root");
 
-        var schemaLoader = new SingleLineCommandSchemaLoader("src/test/resources/SingleLineSchema.txt",connectionProperties);
+        var schemaLoader = new SingleLineCommandSchemaLoader("C:/Users/10030110/Desktop/m06/sql.txt",connectionProperties); //  src/test/resources/SingleLineSchema.txt
 
         assertDoesNotThrow(() -> {schemaLoader.load();});
     }

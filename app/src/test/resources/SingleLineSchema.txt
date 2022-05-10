@@ -1,1 +1,0 @@
-create table test(id int(3) not null);

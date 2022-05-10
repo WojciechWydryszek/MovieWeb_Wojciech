@@ -9,3 +9,5 @@
 
 rootProject.name = 'MovieWeb'
 include('app', 'list', 'utilities')
+include 'domain'
+
