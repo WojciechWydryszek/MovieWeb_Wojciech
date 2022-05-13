@@ -38,9 +38,9 @@ public class SqlCommandLoader implements SchemaLoader {
                                 skip = true;
                             }
                     }
-                    statement.executeUpdate(command);
                 }
             }
+            statement.executeUpdate(command);
 
         } catch (SQLException e) {
             throw new SchemaLoaderException("Sql Exception!", e);
