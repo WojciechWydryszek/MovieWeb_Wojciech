@@ -3,8 +3,6 @@ package cat.uvic.teknos.m06.MovieWeb.app;
 import cat.uvic.teknos.m06.MovieWeb.app.exception.AppCheckExceptions;
 import cat.uvic.teknos.m06.MovieWeb.app.exception.AppUnchekedException;
 import cat.uvic.teknos.m06.MovieWeb.list.LinkedList;
-import static cat.uvic.teknos.m06.MovieWeb.utilities.StringUtils.join;
-import static cat.uvic.teknos.m06.MovieWeb.utilities.StringUtils.split;
 import org.apache.commons.text.WordUtils;
 import java.sql.Driver;
 import java.sql.DriverManager;
