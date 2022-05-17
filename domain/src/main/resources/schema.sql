@@ -1,9 +1,6 @@
 DROP database IF EXISTS MovieWeb;
-
 CREATE DATABASE IF NOT EXISTS MovieWeb;
-
 USE MovieWeb; -- connend test
-
 CREATE TABLE IF NOT EXISTS FILMS( -- connend test
     ID INT(5) PRIMARY KEY,
     NAME VARCHAR(15) NOT NULL,
