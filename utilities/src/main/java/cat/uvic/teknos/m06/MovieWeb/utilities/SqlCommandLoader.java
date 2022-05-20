@@ -43,7 +43,7 @@ public class SqlCommandLoader implements SchemaLoader{
                 }
                 statement.executeUpdate(command);
             }
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             throw new SchemaLoaderException("Sql Exception!", e);
         } catch (FileNotFoundException e) {
             throw new SchemaLoaderException("File Exception!" + schemaPath + " doesn't exist" + e);
