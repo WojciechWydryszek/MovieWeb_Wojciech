@@ -1,6 +1,5 @@
 package cat.uvic.teknos.m06.MovieWeb.domain.models.repositories;
 
-import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 class FilmsRepositoryTest {
