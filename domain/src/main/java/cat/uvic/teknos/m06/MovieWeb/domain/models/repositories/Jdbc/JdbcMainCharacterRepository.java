@@ -58,13 +58,13 @@ public class JdbcMainCharacterRepository implements FilmsRepository {
             Statement statement = connection.createStatement();
             String select = "SELECT * FROM MovieWeb.MainCharacter;";
             ResultSet resultSet = statement.executeQuery(select);
-            Actor mainCharacter;
+            MainCharacter mainCharacter;
 
             while (resultSet.next()){
-                mainCharacter = new Actor();
-                mainCharacter.SetId(resultSet.getInt("ID_ACTOR"));
-                mainCharacter.SetName(resultSet.getString("NAME"));
-                mainCharacter.SetId(resultSet.getInt("ID_FILM"));
+                mainCharacter = new MainCharacter();
+                mainCharacter.SetId_actor(resultSet.getInt("ID_ACTOR"));
+                mainCharacter.SetName_ch(resultSet.getString("NAME"));
+                mainCharacter.SetId_film(resultSet.getInt("ID_FILM"));
             }
             return listMainCharacter;
         } catch (Exception e) {
