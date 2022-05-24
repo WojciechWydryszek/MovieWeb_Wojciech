@@ -1,5 +1,6 @@
 package cat.uvic.teknos.m06.MovieWeb.domain.models.repositories;
 
+import cat.uvic.teknos.m06.MovieWeb.domain.models.helper.ConnectionProperties;
 import org.junit.jupiter.api.Test;
 
 class FilmsRepositoryTest {

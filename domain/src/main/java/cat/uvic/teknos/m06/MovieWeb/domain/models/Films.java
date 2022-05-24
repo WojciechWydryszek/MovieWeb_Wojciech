@@ -10,7 +10,7 @@ public class Films {
 
     public void SetId(int id) { this.id_film = id; }
 
-    public int GetId() { return id_film; }
+    public static int GetId() { return id_film; }
 
     public void SetIdGen (int id_gen) { this.id_gen = id_gen; }
 

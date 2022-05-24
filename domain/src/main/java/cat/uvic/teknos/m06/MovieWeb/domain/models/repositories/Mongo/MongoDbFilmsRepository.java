@@ -1,11 +1,12 @@
-package cat.uvic.teknos.m06.MovieWeb.domain.models.repositories;
+/*package cat.uvic.teknos.m06.MovieWeb.domain.models.repositories.Mongo;
 
 import cat.uvic.teknos.m06.MovieWeb.domain.models.Films;
+import cat.uvic.teknos.m06.MovieWeb.domain.models.repositories.FilmsRepository;
 
 import java.sql.Connection;
 import java.util.List;
 
-public class JpaFilmsRepository implements FilmsRepository{
+public class MongoDbFilmsRepository implements FilmsRepository {
     @Override
     public void Save() {
 
@@ -13,6 +14,7 @@ public class JpaFilmsRepository implements FilmsRepository{
 
     @Override
     public List<Films> Update(Connection conn, Integer id) {
+
         return null;
     }
 
@@ -26,6 +28,7 @@ public class JpaFilmsRepository implements FilmsRepository{
         return null;
     }
 
+
     @Override
     public String GetAll(Connection conn) {
         return null;
@@ -36,3 +39,4 @@ public class JpaFilmsRepository implements FilmsRepository{
         return null;
     }
 }
+*/

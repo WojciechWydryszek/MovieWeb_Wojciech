@@ -1,4 +1,4 @@
-package cat.uvic.teknos.m06.MovieWeb.domain.models.repositories;
+package cat.uvic.teknos.m06.MovieWeb.domain.models.helper;
 
 public class ConnectionProperties {
     private static String url;
