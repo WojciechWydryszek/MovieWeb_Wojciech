@@ -7,67 +7,59 @@ import javax.persistence.EntityManagerFactory;
 import java.security.Key;
 import java.util.List;
 
-public class JpaFilmsRepository implements MovieWebRep {
+public class JpaGenreRepository implements MovieWebRep {
 
     private final EntityManagerFactory entityManagerFactory;
 
-    public JpaFilmsRepository(EntityManagerFactory entityManagerFactory) {
+    public JpaGenreRepository(EntityManagerFactory entityManagerFactory) {
         this.entityManagerFactory = entityManagerFactory;
-    }
-
-    @Override
-    public void Delete(Object id) {
-
     }
 
     @Override
     public void Delete(Key id) {
         var entityManager = entityManagerFactory.createEntityManager();
-        var film = entityManager.find(Film.class, id);
+        var genre = entityManager.find(Genre.class, id);
         entityManager.getTransaction().begin();
-        if (film != null) {
-            entityManager.merge(film);
-            entityManager.remove(film);
+        if (genre != null) {
+            entityManager.merge(genre); // the merge create new ob
+            entityManager.remove(genre);
         }
         entityManager.getTransaction().commit();
     }
 
     @Override
     public void Save(Genre film) {
-        if (((Film) film).getId() <= 0)
+        if (((Film) film).getId() <= 0) // if film ID is 0 or less execute insert function, else execute the Update
             Insert(film);
         else
             Update(film);
     }
 
-    private void Insert(Film film){
+    public void Insert(Genre genre) {
+        var entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin(); // start transaction
+        entityManager.persist(genre); //insert film ob
+        entityManager.getTransaction().commit(); // commit
+    }
+
+    public void Update(Genre genre){
         var entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
-        entityManager.persist(film);
+        entityManager.persist(genre);
         entityManager.getTransaction().commit();
     }
 
-    private void Update(Film film){
+    public Genre GetById(Integer id) {
         var entityManager = entityManagerFactory.createEntityManager();
-        entityManager.getTransaction().begin();
-        entityManager.persist(film);
-        entityManager.getTransaction().commit();
+        return entityManager.find(Genre.class, id);
     }
 
-    public Film GetById(Integer id) {
+    public List<Genre> GetAll() {
         var entityManager = entityManagerFactory.createEntityManager();
-        return entityManager.find(Film.class, id);
-    }
-
-    @Override
-    public List<Film> GetAll() {
-        var entityManager = entityManagerFactory.createEntityManager();
-        var query = entityManager.createQuery("SELECT FILM FROM Film film ");
+        var query = entityManager.createQuery("SELECT GENRE FROM Genre genre");
         return query.getResultList();
     }
 
-
+    @Override
+    public void Delete(Object id) {}
 }
-
-
-

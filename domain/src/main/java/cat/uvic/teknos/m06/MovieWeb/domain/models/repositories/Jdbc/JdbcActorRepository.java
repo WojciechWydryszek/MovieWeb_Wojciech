@@ -1,7 +1,7 @@
 package cat.uvic.teknos.m06.MovieWeb.domain.models.repositories.Jdbc;
 
 import cat.uvic.teknos.m06.MovieWeb.domain.models.Actor;
-import cat.uvic.teknos.m06.MovieWeb.domain.models.Films;
+import cat.uvic.teknos.m06.MovieWeb.domain.models.Film;
 import cat.uvic.teknos.m06.MovieWeb.domain.models.Genre;
 import cat.uvic.teknos.m06.MovieWeb.domain.models.MainCharacter;
 import cat.uvic.teknos.m06.MovieWeb.domain.models.exceptions.RepositoryExceptions;
@@ -22,6 +22,8 @@ public class JdbcActorRepository implements FilmsRepository {
     public JdbcActorRepository(ConnectionControl connectionControl) { this.connectionControl = connectionControl; }
 
 
+    @Override
+    public void Delete(Object id) {}
 
     @Override
     public void Delete(Key id) {
@@ -35,16 +37,21 @@ public class JdbcActorRepository implements FilmsRepository {
     }
 
     @Override
-    public void Save(Films films) {
+    public void Save(Genre films) {
+
+    }
+
+    @Override
+    public void Save(Film films) {
         try (Connection connection = connectionControl.getConnection()){
             PreparedStatement preparedStatementOne = connection.prepareStatement("INSERT INTO MovieWeb.ACTOR VALUES (?);");
             PreparedStatement preparedStatementTwo = connection.prepareStatement("UPDATE MovieWeb.ACTOR SET (?);");
 
-            if(Actor.GetId() == 0) {
-                preparedStatementOne.setString(1, Actor.GetName());
+            if(Actor.getId() == 0) {
+                preparedStatementOne.setString(1, Actor.getName());
                 preparedStatementOne.executeUpdate();
             } else {
-                preparedStatementTwo.setString(1, Actor.GetName());
+                preparedStatementTwo.setString(1, Actor.getName());
                 preparedStatementTwo.executeUpdate();
             }
         } catch (Exception e) {
@@ -62,14 +69,19 @@ public class JdbcActorRepository implements FilmsRepository {
 
             while (resultSet.next()){
                 actor = new Actor();
-                actor.SetId(resultSet.getInt("ID_ACTOR"));
-                actor.SetName(resultSet.getString("NAME"));
+                actor.setId(resultSet.getInt("ID_ACTOR"));
+                actor.setName(resultSet.getString("NAME"));
                 listActor.add(actor);
             }
             return listActor;
         } catch (Exception e) {
             throw new RepositoryExceptions("ERROR FOUND: ",e);
         }
+    }
+
+    @Override
+    public Object GetById(Integer id) {
+        return null;
     }
 
     public Actor GetById(Key id) {
@@ -82,15 +94,14 @@ public class JdbcActorRepository implements FilmsRepository {
             int id_actor = resultSet.getInt("ID_ACTOR");
             String name = resultSet.getString("NAME");
 
-            actor.SetId(id_actor);
-            actor.SetName(name);
+            actor.setId(id_actor);
+            actor.setName(name);
             return actor;
 
         }catch (Exception e) {
             throw new RepositoryExceptions("ERROR FOUND: ",e);
         }
     }
-
 
     @Override
     public List<Genre> GetFilmsByIdGen(Genre genre) { return null; }
@@ -99,7 +110,7 @@ public class JdbcActorRepository implements FilmsRepository {
     public List<Actor> GetFilmsByIdGen(Actor actor) { return null; }
 
     @Override
-    public List<Films> GetFilmsByIdGen(Films films) { return null; }
+    public List<Film> GetFilmsByIdGen(Film film) { return null; }
 
     @Override
     public List<MainCharacter> GetFilmsByIdGen(MainCharacter mainCharacter) { return null; }

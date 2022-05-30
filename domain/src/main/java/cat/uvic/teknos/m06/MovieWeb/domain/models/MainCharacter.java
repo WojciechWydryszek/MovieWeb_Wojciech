@@ -1,18 +1,38 @@
 package cat.uvic.teknos.m06.MovieWeb.domain.models;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+@Entity
 public class MainCharacter {
-    private static int id_actor, id_film;
-    private static String name_ch;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private static int id;
+    private static Film idFilm;
+    private static String name;
 
-    public static int GetId_actor() { return id_actor; }
+    public static int getId() {
+        return id;
+    }
 
-    public void SetId_actor(int id_actor) { this.id_actor = id_actor; }
+    public static void setId(int id) {
+        MainCharacter.id = id;
+    }
 
-    public int GetId_film() { return id_film; }
+    public static Film getIdFilm() {
+        return idFilm;
+    }
 
-    public void SetId_film(int id_film) { this.id_film = id_film; }
+    public static void setIdFilm(Film idFilms) {
+        MainCharacter.idFilm = idFilms;
+    }
 
-    public static String GetName_ch() { return name_ch; }
+    public static String getName() {
+        return name;
+    }
 
-    public void SetName_ch(String name_ch) { this.name_ch = name_ch; }
+    public static void setName(String name) {
+        MainCharacter.name = name;
+    }
 }

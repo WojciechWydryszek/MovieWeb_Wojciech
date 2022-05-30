@@ -17,6 +17,11 @@ public class JdbcFilmsRepository implements FilmsRepository {
 
 
     @Override
+    public void Delete(Object id) {
+
+    }
+
+    @Override
     public void Delete(Key id) {
         try (Connection connection = connectionControl.getConnection()){
             PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM MovieWeb.FILMS WHERE ID = ?");
@@ -28,16 +33,21 @@ public class JdbcFilmsRepository implements FilmsRepository {
     }
 
     @Override
-    public void Save(Films films) {
+    public void Save(Genre films) {
+
+    }
+
+    @Override
+    public void Save(Film films) {
         try (Connection connection = connectionControl.getConnection()){
             PreparedStatement preparedStatementOne = connection.prepareStatement("INSERT INTO MovieWeb.FILMS VALUES (?);");
             PreparedStatement preparedStatementTwo = connection.prepareStatement("UPDATE MovieWeb.FILMS SET (?);");
 
-            if(Films.GetId() == 0) {
-                preparedStatementOne.setString(1, Films.GetName());
+            if(Film.getId() == 0) {
+                preparedStatementOne.setString(1, Film.getName());
                 preparedStatementOne.executeUpdate();
             } else {
-                preparedStatementTwo.setString(1, Films.GetName());
+                preparedStatementTwo.setString(1, Film.getName());
                 preparedStatementTwo.executeUpdate();
             }
         } catch (Exception e) {
@@ -45,9 +55,9 @@ public class JdbcFilmsRepository implements FilmsRepository {
         }
     }
 
-    public Films GetById(Key id) {
+    public Film GetById(Key id) {
         try (Connection connection = connectionControl.getConnection()){
-            Films films = new Films();
+            Film films = new Film();
             PreparedStatement preparedStatement=connection.prepareStatement("SELECT * FROM MovieWeb.FILMS WHERE ID = ?");
             preparedStatement.setInt(1, Integer.valueOf(String.valueOf(id)));
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -56,8 +66,8 @@ public class JdbcFilmsRepository implements FilmsRepository {
             String name = resultSet.getString("NAME");
 
 
-            films.SetId(idFilm);
-            films.SetName(name);
+            films.setId(idFilm);
+            films.setName(name);
             return films;
 
         }catch (Exception e) {
@@ -65,24 +75,29 @@ public class JdbcFilmsRepository implements FilmsRepository {
         }
     }
 
-    public List<Films> GetAll() {
+    public List<Film> GetAll() {
         try (Connection connection = connectionControl.getConnection()){
-            List<Films> listFilms = new ArrayList<>();
+            List<Film> listFilms = new ArrayList<>();
             Statement statement = connection.createStatement();
             String select = "SELECT * FROM MovieWeb.FILMS;";
             ResultSet resultSet = statement.executeQuery(select);
-            Films films;
+            Film film;
 
             while (resultSet.next()){
-                films = new Films();
-                films.SetId(resultSet.getInt("ID"));
-                films.SetName(resultSet.getString("NAME"));
-                listFilms.add(films);
+                film = new Film();
+                film.setId(resultSet.getInt("ID"));
+                film.setName(resultSet.getString("NAME"));
+                listFilms.add(film);
             }
             return listFilms;
         } catch (Exception e) {
             throw new RepositoryExceptions("ERROR FOUND: ",e);
         }
+    }
+
+    @Override
+    public Object GetById(Integer id) {
+        return null;
     }
 
     @Override
@@ -92,7 +107,7 @@ public class JdbcFilmsRepository implements FilmsRepository {
     public List<Actor> GetFilmsByIdGen(Actor actor) { return null; }
 
     @Override
-    public List<Films> GetFilmsByIdGen(Films films) { return null; }
+    public List<Film> GetFilmsByIdGen(Film film) { return null; }
 
     @Override
     public List<MainCharacter> GetFilmsByIdGen(MainCharacter mainCharacter) { return null; }

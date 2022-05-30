@@ -1,7 +1,7 @@
 package cat.uvic.teknos.m06.MovieWeb.domain.models.repositories.Jdbc;
 
 import cat.uvic.teknos.m06.MovieWeb.domain.models.Actor;
-import cat.uvic.teknos.m06.MovieWeb.domain.models.Films;
+import cat.uvic.teknos.m06.MovieWeb.domain.models.Film;
 import cat.uvic.teknos.m06.MovieWeb.domain.models.Genre;
 import cat.uvic.teknos.m06.MovieWeb.domain.models.MainCharacter;
 import cat.uvic.teknos.m06.MovieWeb.domain.models.exceptions.RepositoryExceptions;
@@ -19,6 +19,11 @@ public class JdbcGenreRepository implements FilmsRepository {
     public JdbcGenreRepository(ConnectionControl connectionControl) { this.connectionControl = connectionControl; }
 
     @Override
+    public void Delete(Object id) {
+
+    }
+
+    @Override
     public void Delete(Key id) {
         try (Connection connection = connectionControl.getConnection()){
             PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM MovieWeb.GENRE WHERE ID_GEN = ?");
@@ -30,16 +35,21 @@ public class JdbcGenreRepository implements FilmsRepository {
     }
 
     @Override
-    public void Save(Films films) {
+    public void Save(Genre films) {
+
+    }
+
+    @Override
+    public void Save(Film film) {
         try (Connection connection = connectionControl.getConnection()){
             PreparedStatement preparedStatementOne = connection.prepareStatement("INSERT INTO MovieWeb.Genre VALUES (?);");
             PreparedStatement preparedStatementTwo = connection.prepareStatement("UPDATE MovieWeb.GEN SET (?);");
 
-            if(Genre.GetId_gen() == 0) {
-                preparedStatementOne.setString(1, Genre.GetNameInsert());
+            if(Genre.getId() == 0) {
+                preparedStatementOne.setString(1, Genre.getName());
                 preparedStatementOne.executeUpdate();
             } else {
-                preparedStatementTwo.setString(1, Genre.GetNameUpdate());
+                preparedStatementTwo.setString(1, Genre.getName());
                 preparedStatementTwo.executeUpdate();
             }
         } catch (Exception e) {
@@ -57,8 +67,8 @@ public class JdbcGenreRepository implements FilmsRepository {
             int id_gen = resultSet.getInt("ID_GEN");
             String description = resultSet.getString("DESCRIPTION");
 
-            genre.SetId_gen(id_gen);
-            genre.SetDescioption(description);
+            genre.setId(id_gen);
+            genre.setName(description);
             return genre;
 
         }catch (Exception e) {
@@ -76,8 +86,8 @@ public class JdbcGenreRepository implements FilmsRepository {
 
             while (resultSet.next()){
                 genre = new Genre();
-                genre.SetId_gen(resultSet.getInt("ID_GENRE"));
-                genre.SetDescioption(resultSet.getString("DESCRIPTION"));
+                genre.setId(resultSet.getInt("ID_GENRE"));
+                genre.setName(resultSet.getString("DESCRIPTION"));
                 listGenre.add(genre);
             }
             return listGenre;
@@ -87,13 +97,18 @@ public class JdbcGenreRepository implements FilmsRepository {
     }
 
     @Override
+    public Object GetById(Integer id) {
+        return null;
+    }
+
+    @Override
     public List<Genre> GetFilmsByIdGen(Genre genre) { return null; }
 
     @Override
     public List<Actor> GetFilmsByIdGen(Actor actor) { return null; }
 
     @Override
-    public List<Films> GetFilmsByIdGen(Films films) { return null; }
+    public List<Film> GetFilmsByIdGen(Film film) { return null; }
 
     @Override
     public List<MainCharacter> GetFilmsByIdGen(MainCharacter mainCharacter) { return null; }

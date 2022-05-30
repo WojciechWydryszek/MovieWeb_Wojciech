@@ -1,19 +1,27 @@
 package cat.uvic.teknos.m06.MovieWeb.domain.models;
 
-import java.util.List;
+import javax.persistence.*;
 
-public class Genre extends Films {
-    private static int id_gen;
+@Entity
+public class Genre extends Film {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private static int id;
     private static String name;
 
-    public static int GetId_gen() { return id_gen; }
+    public static int getId() {
+        return id;
+    }
 
+    public static void setId(int id) {
+        Genre.id = id;
+    }
 
-    public void SetId_gen(int id_gen) { this.id_gen = id_gen; }
+    public static String getName() {
+        return name;
+    }
 
-    public static String GetNameInsert() { return name; }
-
-    public static String GetNameUpdate() { return name; }
-
-    public void SetDescioption(String name) { this.name = name; }
+    public static void setName(String name) {
+        Genre.name = name;
+    }
 }

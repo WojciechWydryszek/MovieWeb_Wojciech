@@ -1,13 +1,9 @@
 package cat.uvic.teknos.m06.MovieWeb.domain.models.repositories.Jdbc;
 
-import cat.uvic.teknos.m06.MovieWeb.domain.models.Actor;
-import cat.uvic.teknos.m06.MovieWeb.domain.models.Films;
-import cat.uvic.teknos.m06.MovieWeb.domain.models.Genre;
-import cat.uvic.teknos.m06.MovieWeb.domain.models.MainCharacter;
+import cat.uvic.teknos.m06.MovieWeb.domain.models.*;
 import cat.uvic.teknos.m06.MovieWeb.domain.models.exceptions.RepositoryExceptions;
 import cat.uvic.teknos.m06.MovieWeb.domain.models.helper.ConnectionControl;
 import cat.uvic.teknos.m06.MovieWeb.domain.models.repositories.FilmsRepository;
-
 import java.security.Key;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -22,6 +18,8 @@ public class JdbcMainCharacterRepository implements FilmsRepository {
     public JdbcMainCharacterRepository(ConnectionControl connectionControl) { this.connectionControl = connectionControl; }
 
 
+    @Override
+    public void Delete(Object id) {}
 
     @Override
     public void Delete(Key id) {
@@ -35,16 +33,16 @@ public class JdbcMainCharacterRepository implements FilmsRepository {
     }
 
     @Override
-    public void Save(Films films) {
+    public void Save(Genre film) {
         try (Connection connection = connectionControl.getConnection()){
             PreparedStatement preparedStatementOne = connection.prepareStatement("INSERT INTO MovieWeb.MAIN_CHAPTER VALUES (?);");
             PreparedStatement preparedStatementTwo = connection.prepareStatement("UPDATE MovieWeb.MAIN_CHAPTER SET (?);");
 
-            if(MainCharacter.GetId_actor() == 0) {
-                preparedStatementOne.setString(1, MainCharacter.GetName_ch());
+            if(MainCharacter.getId() == 0) {
+                preparedStatementOne.setString(1, MainCharacter.getName());
                 preparedStatementOne.executeUpdate();
             } else {
-                preparedStatementTwo.setString(1, MainCharacter.GetName_ch());
+                preparedStatementTwo.setString(1, MainCharacter.getName());
                 preparedStatementTwo.executeUpdate();
             }
         } catch (Exception e) {
@@ -62,14 +60,19 @@ public class JdbcMainCharacterRepository implements FilmsRepository {
 
             while (resultSet.next()){
                 mainCharacter = new MainCharacter();
-                mainCharacter.SetId_actor(resultSet.getInt("ID_ACTOR"));
-                mainCharacter.SetName_ch(resultSet.getString("NAME"));
-                mainCharacter.SetId_film(resultSet.getInt("ID_FILM"));
+                mainCharacter.setId(resultSet.getInt("ID_ACTOR"));
+                mainCharacter.setName(resultSet.getString("NAME"));
+                mainCharacter.setId(resultSet.getInt("ID_FILM"));
             }
             return listMainCharacter;
         } catch (Exception e) {
             throw new RepositoryExceptions("ERROR FOUND: ",e);
         }
+    }
+
+    @Override
+    public Object GetById(Integer id) {
+        return null;
     }
 
     public MainCharacter GetById(Key id) {
@@ -79,18 +82,21 @@ public class JdbcMainCharacterRepository implements FilmsRepository {
             preparedStatement.setInt(1, Integer.valueOf(String.valueOf(id)));
             ResultSet resultSet = preparedStatement.executeQuery();
 
-            int id_actor = resultSet.getInt("ID_ACTOR");
+            int idActor = resultSet.getInt("ID_ACTOR");
             String name = resultSet.getString("NAME");
-            int id_film = resultSet.getInt("ID_FILMS");
 
-            mainCharacter.SetId_actor(id_actor);
-            mainCharacter.SetName_ch(name);
-            mainCharacter.SetId_film(id_film);
+            mainCharacter.setId(idActor);
+            mainCharacter.setName(name);
             return mainCharacter;
 
         }catch (Exception e) {
             throw new RepositoryExceptions("ERROR FOUND: ",e);
         }
+    }
+
+    @Override
+    public void Save(Film film) {
+
     }
 
     @Override
@@ -104,7 +110,7 @@ public class JdbcMainCharacterRepository implements FilmsRepository {
     }
 
     @Override
-    public List<Films> GetFilmsByIdGen(Films films) {
+    public List<Film> GetFilmsByIdGen(Film film) {
         return null;
     }
 

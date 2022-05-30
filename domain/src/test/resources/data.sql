@@ -1,0 +1,1 @@
+insert into Genre (name) values ('Action'), ('Commedi');
