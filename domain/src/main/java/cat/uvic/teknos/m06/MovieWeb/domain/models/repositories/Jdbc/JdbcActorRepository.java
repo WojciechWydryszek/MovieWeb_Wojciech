@@ -1,4 +1,4 @@
-package cat.uvic.teknos.m06.MovieWeb.domain.models.repositories.Jdbc;
+/*package cat.uvic.teknos.m06.MovieWeb.domain.models.repositories.Jdbc;
 
 import cat.uvic.teknos.m06.MovieWeb.domain.models.Actor;
 import cat.uvic.teknos.m06.MovieWeb.domain.models.Film;
@@ -26,7 +26,7 @@ public class JdbcActorRepository implements FilmsRepository {
     public void Delete(Object id) {}
 
     @Override
-    public void Delete(Key id) {
+    public void Delete(int id) {
         try (Connection connection = connectionControl.getConnection()){
             PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM MovieWeb.ACTOR WHERE ID_ACTOR = ?");
             preparedStatement.setInt(1, Integer.valueOf(String.valueOf(id)));
@@ -114,4 +114,4 @@ public class JdbcActorRepository implements FilmsRepository {
 
     @Override
     public List<MainCharacter> GetFilmsByIdGen(MainCharacter mainCharacter) { return null; }
-}
+}*/

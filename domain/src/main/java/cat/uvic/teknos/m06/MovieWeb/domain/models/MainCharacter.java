@@ -7,14 +7,12 @@ import javax.persistence.Id;
 @Entity
 public class MainCharacter {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private static int id;
     private static Film idFilm;
     private static String name;
 
-    public static int getId() {
-        return id;
-    }
+    public static int getId() { return id; }
 
     public static void setId(int id) {
         MainCharacter.id = id;

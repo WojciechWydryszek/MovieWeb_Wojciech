@@ -1,60 +1,59 @@
 package cat.uvic.teknos.m06.MovieWeb.domain.models.repositories.Jpa;
 
-import cat.uvic.teknos.m06.MovieWeb.domain.models.Genre;
+import cat.uvic.teknos.m06.MovieWeb.domain.models.Actor;
 import cat.uvic.teknos.m06.MovieWeb.domain.models.repositories.MovieWebRep;
 import javax.persistence.EntityManagerFactory;
 import java.util.List;
 
-public class JpaGenreRepository implements MovieWebRep {
+public class JpaActorRepository implements MovieWebRep {
 
     private final EntityManagerFactory entityManagerFactory;
 
-    public JpaGenreRepository(EntityManagerFactory entityManagerFactory) {
+    public JpaActorRepository(EntityManagerFactory entityManagerFactory) {
         this.entityManagerFactory = entityManagerFactory;
     }
-
     @Override
     public void Delete(int id) {
         var entityManager = entityManagerFactory.createEntityManager();
-        var genre = entityManager.find(Genre.class, id);
+        var actor = entityManager.find(Actor.class, id);
         entityManager.getTransaction().begin();
-        if (genre != null) {
-            entityManager.merge(genre); // the merge create new ob
-            entityManager.remove(genre);
+        if (actor != null) {
+            entityManager.merge(actor); // the merge create new ob
+            entityManager.remove(actor);
         }
         entityManager.getTransaction().commit();
     }
 
     @Override
-    public void Save(Object genre) {
-        if (((Genre) genre).getId() <= 0) // if film ID is 0 or less execute insert function, else execute the Update
-            Insert((Genre) genre);
+    public void Save(Object actor) {
+        if (((Actor) actor).getId() <= 0) // if film ID is 0 or less execute insert function, else execute the Update
+            Insert((Actor) actor);
         else
-            Update((Genre) genre);
+            Update((Actor) actor);
     }
 
-    public void Insert(Genre genre) {
+    public void Insert(Actor actor) {
         var entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin(); // start transaction
-        entityManager.persist(genre); //insert film ob
+        entityManager.persist(actor); //insert film ob
         entityManager.getTransaction().commit(); // commit
     }
 
-    public void Update(Genre genre){
+    public void Update(Actor actor){
         var entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
-        entityManager.persist(genre);
+        entityManager.persist(actor);
         entityManager.getTransaction().commit();
     }
 
-    public Genre GetById(Integer id) {
+    public List<Actor> GetAll() {
         var entityManager = entityManagerFactory.createEntityManager();
-        return entityManager.find(Genre.class, id);
+        var query = entityManager.createQuery("SELECT Actor FROM Actor actor");
+        return query.getResultList();
     }
 
-    public List<Genre> GetAll() {
+    public Actor GetById(Integer id) {
         var entityManager = entityManagerFactory.createEntityManager();
-        var query = entityManager.createQuery("SELECT GENRE FROM Genre genre");
-        return query.getResultList();
+        return entityManager.find(Actor.class, id);
     }
 }

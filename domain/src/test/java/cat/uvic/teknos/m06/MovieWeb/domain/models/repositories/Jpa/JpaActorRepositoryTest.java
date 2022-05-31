@@ -1,20 +1,19 @@
 package cat.uvic.teknos.m06.MovieWeb.domain.models.repositories.Jpa;
 
-import cat.uvic.teknos.m06.MovieWeb.domain.models.Genre;
+import cat.uvic.teknos.m06.MovieWeb.domain.models.Actor;
 import cat.uvic.teknos.m06.MovieWeb.domain.models.repositories.MovieWebRep;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-
 import static org.junit.jupiter.api.Assertions.*;
 
-class JpaGenreRepositoryTest {
+class JpaActorRepositoryTest {
     private final int  MODEL_TO_DELETE = 2;
     private static EntityManagerFactory entityManagerFactory;
     private static MovieWebRep movieWebRep;
 
-    public JpaGenreRepositoryTest(EntityManagerFactory entityManagerFactory) {
+    public JpaActorRepositoryTest(EntityManagerFactory entityManagerFactory) {
         this.entityManagerFactory = entityManagerFactory;
     }
 
@@ -25,29 +24,29 @@ class JpaGenreRepositoryTest {
     }
 
     @Test
-        void saveInsert() {
-        Genre genre = new Genre();
+    void seveInsert() {
+        Actor actor = new Actor();
 
-        genre.setName("Action");
-        genre.setId(0);
+        actor.setName("Brad Pit");
+        actor.setId(0);
 
         assertDoesNotThrow(() -> {
-            movieWebRep.Save(genre);
+            movieWebRep.Save(actor);
         });
 
-        assertTrue(genre.getId() > 0);
+        assertTrue(actor.getId() > 0);
     }
 
-     @Test
-     void saveUpdate(){
-        Genre genre = new Genre();
+    @Test
+    void saveUpdate() {
+        Actor actor = new Actor();
 
-        genre.setId(1);
-        genre.setName("Action");
+        actor.setId(1);
+        actor.setName("Adam");
 
-        assertDoesNotThrow(() -> { movieWebRep.Save(genre); });
+        assertDoesNotThrow(() -> { movieWebRep.Save(actor); });
 
-        assertTrue(genre.getId() > 0);
+        assertTrue(actor.getId() > 0);
     }
 
     @Test
@@ -57,16 +56,16 @@ class JpaGenreRepositoryTest {
 
     @Test
     void getAll() {
-        var filmGenre = movieWebRep.GetAll();
+        var actor = movieWebRep.GetAll();
 
-        assertNotNull(filmGenre);
-        assertTrue(filmGenre.size() > 0);
+        assertNull(actor);
+        assertTrue(actor.size() > 0);
     }
 
     @Test
     void getById() {
-        var filmGenre = movieWebRep.GetById(2);
+        var actor = movieWebRep.GetById(2);
 
-        assertNotNull(filmGenre);
+        assertNotNull(actor);
     }
 }

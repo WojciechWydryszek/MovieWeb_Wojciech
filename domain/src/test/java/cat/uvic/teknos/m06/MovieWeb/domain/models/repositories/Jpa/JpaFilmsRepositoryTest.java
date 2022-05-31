@@ -20,7 +20,7 @@ class JpaFilmsRepositoryTest {
     }
 
     @BeforeAll
-    static void SetUp() {
+    static void setUp() {
         entityManagerFactory = Persistence.createEntityManagerFactory("movieweb_mysql");
         movieWebRep = new JpaFilmsRepository(entityManagerFactory);
     }
@@ -43,9 +43,7 @@ class JpaFilmsRepositoryTest {
         film.setId(1);
         film.setName("Avatar (2002)");
 
-        assertDoesNotThrow(() -> {
-            movieWebRep.Save((Genre) film);
-        });
+        assertDoesNotThrow(() -> { movieWebRep.Save((Genre) film); });
 
         assertTrue(film.getId() > 0);
     }

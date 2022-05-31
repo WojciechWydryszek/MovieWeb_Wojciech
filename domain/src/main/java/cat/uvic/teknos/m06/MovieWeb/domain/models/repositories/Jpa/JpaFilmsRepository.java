@@ -1,10 +1,8 @@
 package cat.uvic.teknos.m06.MovieWeb.domain.models.repositories.Jpa;
 
 import cat.uvic.teknos.m06.MovieWeb.domain.models.Film;
-import cat.uvic.teknos.m06.MovieWeb.domain.models.Genre;
 import cat.uvic.teknos.m06.MovieWeb.domain.models.repositories.MovieWebRep;
 import javax.persistence.EntityManagerFactory;
-import java.security.Key;
 import java.util.List;
 
 public class JpaFilmsRepository implements MovieWebRep {
@@ -16,12 +14,7 @@ public class JpaFilmsRepository implements MovieWebRep {
     }
 
     @Override
-    public void Delete(Object id) {
-
-    }
-
-    @Override
-    public void Delete(Key id) {
+    public void Delete(int id) {
         var entityManager = entityManagerFactory.createEntityManager();
         var film = entityManager.find(Film.class, id);
         entityManager.getTransaction().begin();
@@ -33,11 +26,11 @@ public class JpaFilmsRepository implements MovieWebRep {
     }
 
     @Override
-    public void Save(Genre film) {
+    public void Save(Object film) {
         if (((Film) film).getId() <= 0)
-            Insert(film);
+            Insert((Film) film);
         else
-            Update(film);
+            Update((Film) film);
     }
 
     private void Insert(Film film){
@@ -59,7 +52,6 @@ public class JpaFilmsRepository implements MovieWebRep {
         return entityManager.find(Film.class, id);
     }
 
-    @Override
     public List<Film> GetAll() {
         var entityManager = entityManagerFactory.createEntityManager();
         var query = entityManager.createQuery("SELECT FILM FROM Film film ");

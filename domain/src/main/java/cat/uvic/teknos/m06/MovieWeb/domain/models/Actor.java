@@ -7,11 +7,11 @@ import javax.persistence.Id;
 @Entity
 public class Actor {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private static int id;
     private static String name;
 
-    public static int getId() {
+    public int getId() {
         return id;
     }
 
